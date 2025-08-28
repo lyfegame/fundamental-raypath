@@ -1,0 +1,74 @@
+model_list:
+  # ==================== STATIC MODELS ====================
+  # These are from fundamental-photon/app/api/inference/config/model-endpoints.ts configuration
+  
+  # Baseten deployed model
+  - model_name: "qwen-coder-baseten"
+    litellm_params:
+      model: "our-custom/FundamentalResearchLabs/qwen2.5_coder_v1"
+      description: "Qwen 2.5 Coder model on Baseten"
+      
+  # Main ll8 model 
+  - model_name: "ll8-main"
+    litellm_params:
+      model: "our-custom/FundamentalResearchLabs/ll8-4k-mu-unr-rt1-rel-yes-neg-dm0123456-0089090-b80e337-s1888"
+      description: "Main ll8-4k model"
+      
+  # Qwen 30B model
+  - model_name: "qwen-30b"
+    litellm_params:
+      model: "our-custom/Qwen/Qwen3-Coder-30B-A3B-Instruct"
+      description: "Qwen 3 Coder 30B parameter model"
+      
+  # Qwen 480B model  
+  - model_name: "qwen-480b"
+    litellm_params:
+      model: "our-custom/Qwen/Qwen3-Coder-480B-A35B-Instruct"
+      description: "Qwen 3 Coder 480B parameter model"
+
+  # ==================== FORMAT ENDPOINTS ====================
+  # These provide OpenAI vs Anthropic format access
+  
+  - model_name: "our-custom-openai"
+    litellm_params:
+      model: "our-custom/openai-model"
+      description: "OpenAI format endpoint"
+      
+  - model_name: "our-custom-anthropic"
+    litellm_params:
+      model: "our-custom/anthropic-model"
+      anthropic_format: true
+      description: "Anthropic format endpoint"
+
+  # ==================== DYNAMIC CUSTOM MODELS ====================
+  # Custom models from Supabase are loaded dynamically
+  # Access them directly by name via: FundamentalResearchLabs/{model-name}
+  # Examples (if deployed in Supabase):
+  # - FundamentalResearchLabs/ll8-4k-mu-unr-rt1-rel-yes-neg-test08281309
+  # - FundamentalResearchLabs/leadermodel14b-sft22k-qwen2.5-coder-14b-instruct
+  # - FundamentalResearchLabs/single-turn-toolcall
+  
+  # ==================== TESTING ENDPOINTS ====================
+  
+  - model_name: "test-openai-format"
+    litellm_params:
+      model: "FundamentalResearchLabs/ll8-4k-mu-unr-rt1-rel-yes-neg-dm0123456-0089090-b80e337-s1888"
+      description: "Test OpenAI format with main model"
+      
+  - model_name: "test-anthropic-format"
+    litellm_params:
+      model: "FundamentalResearchLabs/ll8-4k-mu-unr-rt1-rel-yes-neg-dm0123456-0089090-b80e337-s1888"
+      anthropic_format: true
+      description: "Test Anthropic format with main model"
+
+general_settings:
+  master_key: "sk-1234"  # Change this to preferred key
+
+litellm_settings:
+  # Register our custom provider
+  custom_provider_map:
+    - provider: "our-custom"
+      custom_handler: custom_model_handler.our_custom_llm
+
+# Optional: Database config for key management
+# database_url: "postgresql://user:password@localhost:5432/litellm"

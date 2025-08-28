@@ -79,3 +79,11 @@ litellm/proxy/_experimental/out/model_hub.html
 litellm/proxy/application.log
 tests/llm_translation/vertex_test_account.json
 tests/llm_translation/test_vertex_key.json
+
+# Benchmark and test result files
+*_benchmark_results.json
+*_test_results.json
+custom_model_test_results.json
+complete_benchmark_results.json
+arc_benchmark_results.json
+preview_models_test_results.json
